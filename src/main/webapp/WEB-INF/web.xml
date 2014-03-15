@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+    <servlet>
+        <servlet-name>ConfigServlet</servlet-name>
+        <servlet-class>com.alcshare.proxyconfig.servlets.ConfigServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConfigServlet</servlet-name>
+        <url-pattern>/config</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProxyTestServlet</servlet-name>
+        <servlet-class>com.alcshare.proxyconfig.servlets.ProxyTestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyTestServlet</servlet-name>
+        <url-pattern>/proxytest</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+      <listener-class>com.alcshare.proxyconfig.ProxyManager</listener-class>
+    </listener>
+
+    <security-constraint>
+       <web-resource-collection>
+          <web-resource-name>WEB</web-resource-name>
+          <url-pattern>/*</url-pattern>
+          <http-method>GET</http-method>
+          <http-method>POST</http-method>
+       </web-resource-collection>
+       <auth-constraint>
+          <role-name>edit_administrator_only</role-name>
+       </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+       <auth-method>FORM</auth-method>
+       <form-login-config>
+          <form-login-page>/loginout/login.jsp</form-login-page>
+          <form-error-page>/loginout/fail_login.jsp</form-error-page>
+       </form-login-config>
+    </login-config>
+
+</web-app>

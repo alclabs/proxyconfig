@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy Configuration</title>
+    <!-- <link rel="stylesheet" href="css/custom-theme/jquery-ui-1.10.4.custom.min.css"> -->
+    <link rel="stylesheet" href="css/proxyconfig.css">
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <!-- <script src="js/jquery-ui-1.10.4.custom.min.js"></script> -->
+    <script src="js/proxyconfig.js"></script>
+</head>
+<body>
+<div id="status"></div>
+<form>
+    <div id="basicdiv">
+        <fieldset id="basic">
+            <legend>Proxy Settings</legend>
+            <input type="checkbox" id="auto"><label for="auto">Automatically determine proxy settings</label><br>
+            <input type="checkbox" id="useproxy"><label for="useproxy">Use a proxy</label><br>
+            <div id="hostport">
+                <label for="host" class="col1">Host:</label><input type="text" id="host"><br>
+                <label for="port" class="col1">Port:</label><input type="text" id="port"><br>
+            </div>
+            <br>
+            <input type="checkbox" id="authcheck"><label for="authcheck">Authentication required</label><br>
+            <div id="userpass">
+                <label for="username" class="col1">Username:</label><input type="text" id="username" size="30"><br>
+                <label for="password" class="col1">Password:</label><input type="password" id="password" size="30"><br>
+            </div>
+        </fieldset>
+    </div>
+    <div id="test"><label for="testurl">Test URL: http://</label><input type="text" id="testurl" size="30">&nbsp;&nbsp;<span id="result"></span></div>
+</form>
+<button id="save">Save and Test</button>
+</body>
+</html>

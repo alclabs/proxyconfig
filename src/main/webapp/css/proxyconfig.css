@@ -1,0 +1,34 @@
+body {
+    background-color: #D5D5D5;
+    font-family: Arial, 'Helvetica Neue', Helvetica, 'Liberation Sans', sans-serif;
+    color: black;
+}
+
+#basic .col1 {
+    width: 5em;
+    display:inline-block;
+}
+
+
+fieldset {
+    border-radius: 7px;
+    display: inline-block;
+}
+
+#basicdiv {
+    padding-bottom: 2em;
+}
+
+#userpass {
+    display: none;
+}
+
+#test {
+    margin-top: 1em;
+}
+
+#save {
+    margin-top: 1em;
+}
+
+/* todo - style to match WC6 grey / yellow buttons */
