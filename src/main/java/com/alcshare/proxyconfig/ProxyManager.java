@@ -16,7 +16,7 @@ import java.util.List;
 /**
  *
  */
-public class ProxyManager implements ServletContextListener
+public class ProxyManager
 {
     private static ProxyManager instance;   // Singleton
 
@@ -130,17 +130,6 @@ public class ProxyManager implements ServletContextListener
             }
         }
         return Proxy.NO_PROXY;
-    }
-
-    // implementation of ServletContextListener
-    public void contextInitialized(ServletContextEvent sce)
-    {
-        setConfig(Config.load());
-    }
-
-    public void contextDestroyed(ServletContextEvent sce)
-    {
-
     }
 
     private void resetAuthenticationCache() {

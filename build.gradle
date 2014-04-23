@@ -13,6 +13,8 @@ info {
   vendor = 'ALC Labs'
 }
 
+/* have to fork compiler to get it to ignore the symbol file.  Need to use private sun
+   classes like NTLMAuthenticationCallback to control proxy authentication appropriately */
 compileJava {
     options.compilerArgs << '-XDignore.symbol.file'
     options.fork = true

@@ -22,7 +22,7 @@
     </servlet-mapping>
 
     <listener>
-      <listener-class>com.alcshare.proxyconfig.ProxyManager</listener-class>
+      <listener-class>com.alcshare.proxyconfig.servlets.StartupListener</listener-class>
     </listener>
 
     <security-constraint>
