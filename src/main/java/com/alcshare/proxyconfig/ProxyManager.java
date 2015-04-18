@@ -1,15 +1,12 @@
 package com.alcshare.proxyconfig;
 
 import com.alcshare.proxyconfig.util.JavaVersion;
-import com.alcshare.proxyconfig.util.Logging;
 import com.btr.proxy.search.ProxySearch;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sun.net.www.protocol.http.AuthCacheImpl;
 import sun.net.www.protocol.http.AuthCacheValue;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import java.net.*;
 import java.util.List;
 
@@ -20,12 +17,7 @@ public class ProxyManager
 {
     private static ProxyManager instance;   // Singleton
 
-    private Config config;
-
-    private ProxyManager() {
-        config = Config.load();
-        setDefaultProxy();
-    }
+    private ProxyManager() { }
 
     public static synchronized ProxyManager instance() {
         if (instance == null) {
@@ -34,33 +26,17 @@ public class ProxyManager
         return instance;
     }
 
-    public void setConfig(Config config) {
-        this.config = config;
-        setDefaultProxy();
-    }
+    public void setConfig(final Config config) {
+       ProxySelector httpSelector;
 
-    private void setDefaultProxy() {
-        try {
-        ProxySelector proxySelector;
+       if (config.isAuto())
+           httpSelector = new AutoProxySelector(ProxySelector.getDefault(), ProxySearch.Strategy.OS_DEFAULT, 32, 1000*60*15); // Cache 32 urls for up to 15 min.
+       else if (config.isUseProxy())
+           httpSelector = new ManualProxySelector(config.getHost(), config.getPort());
+       else
+           httpSelector = new NoProxySelector();
 
-        if (config.isAuto()) {
-            ProxySearch proxySearch = new ProxySearch();
-            proxySearch.setPacCacheSettings(32, 1000*60*15); // Cache 32 urls for up to 15 min.
-
-            proxySearch.addStrategy(ProxySearch.Strategy.OS_DEFAULT);
-            proxySelector = proxySearch.getProxySelector();
-
-        } else if (config.isUseProxy()) {
-            proxySelector = new ManualProxySelector(config.getHost(), config.getPort());
-        } else {
-            proxySelector = new NoProxySelector();
-        }
-        ProxySelector.setDefault(proxySelector);
-        } catch (Exception ex) {
-            Logging.println("Unexpected error setting default proxy", ex);
-            // note that this can happen currently if the PAC file is not available.
-            // see issue at https://code.google.com/p/proxy-vole/issues/detail?id=47
-        }
+       ProxySelector.setDefault(new HttpProxySelectorAdapter(httpSelector, ProxySelector.getDefault()));
 
         resetAuthenticationCache();
         if (config.isAuthenticated()) {
@@ -148,5 +124,4 @@ public class ProxyManager
             manager.useTransparentNTLMAuthentication(useTransparent);
         }
     }
-
 }
