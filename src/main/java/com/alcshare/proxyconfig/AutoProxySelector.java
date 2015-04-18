@@ -57,6 +57,9 @@ public class AutoProxySelector extends ProxySelector {
             selector = defaultSelector;
          }
 
+         if (selector == null)
+            selector = new NoProxySelector();
+
          delayedLoader.shutdown();
          delegateSelectorRef.set(selector);
       }
