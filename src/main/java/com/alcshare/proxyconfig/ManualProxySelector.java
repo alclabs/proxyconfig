@@ -18,7 +18,7 @@ public class ManualProxySelector extends ProxySelector
     public ManualProxySelector(String host, int port) {
         // todo - should this have DIRECT as a second entry?
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(host, port));
-        List<Proxy> plist = new ArrayList<Proxy>();
+        List<Proxy> plist = new ArrayList<>();
         plist.add(proxy);
         proxies = Collections.unmodifiableList(plist);
     }

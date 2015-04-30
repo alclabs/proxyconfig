@@ -1,5 +1,7 @@
 package com.alcshare.proxyconfig.util;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,15 +13,10 @@ public class JavaVersion implements Comparable
     /*
     String version is like 1.3.1_05-ea.
      */
-    private static JavaVersion version;
     private int major;
     private int minor;
     private int tertiary;
     private int update;
-    private String stringMajor;
-    private String stringMinor;
-    private String stringTertiary;
-    private String stringUpdate;
     private String identifier;
 
     public JavaVersion() {
@@ -30,10 +27,10 @@ public class JavaVersion implements Comparable
         Pattern pattern = Pattern.compile("([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:_([0-9]+))?(?:-(.+))?");
         Matcher matcher = pattern.matcher(stringVersion);
         if (matcher.matches()) {
-            stringMajor = matcher.group(1);
-            stringMinor = matcher.group(2);
-            stringTertiary = matcher.group(3);
-            stringUpdate = matcher.group(4);
+            String stringMajor = matcher.group(1);
+            String stringMinor = matcher.group(2);
+            String stringTertiary = matcher.group(3);
+            String stringUpdate = matcher.group(4);
             identifier = matcher.group(5);
 
             major = parseInt(stringMajor, -1);
@@ -43,20 +40,15 @@ public class JavaVersion implements Comparable
         }
     }
 
-    public int getMajor() { return major; }
-    public int getMinor() { return minor; }
-    public int getTertiary() { return tertiary; }
-    public int getUpdate() { return update; }
     public String getIdentifier() { return identifier; }
 
 
     private int parseInt(String string, int defaultValue) {
         int result = defaultValue;
         if (string != null) {
-            try
-            {
-                result = Integer.parseInt(string);
-            } catch (NumberFormatException e) {} // ignore and use default
+            try {
+               result = Integer.parseInt(string);
+            } catch (NumberFormatException ignored) {} // ignore and use default
         }
         return result;
     }
@@ -93,7 +85,7 @@ public class JavaVersion implements Comparable
         return (compareTo(other) >= 0);
     }
 
-    public int compareTo(Object o)
+    public int compareTo(@NotNull Object o)
     {
         // - if this is less
         JavaVersion other = (JavaVersion) o;

@@ -6,7 +6,6 @@ import com.alcshare.proxyconfig.util.Logging;
 import com.controlj.green.addonsupport.access.*;
 import org.jetbrains.annotations.NotNull;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -50,7 +49,7 @@ public class Config
                     Properties props = new Properties(getDefaultProperties());
                     try {
                         props.load(store.getReader());
-                    } catch (IOException ex) {}
+                    } catch (IOException ignored) {}
                     return props;
                 }
             });
@@ -86,7 +85,7 @@ public class Config
     }
 
     public void setAuto(boolean auto) {
-        props.setProperty(PROP_AUTO, new Boolean(auto).toString());
+        props.setProperty(PROP_AUTO, Boolean.toString(auto));
     }
 
     public boolean isUseProxy() {
@@ -94,7 +93,7 @@ public class Config
     }
 
     public void setUseProxy(boolean useProxy) {
-        props.setProperty(PROP_USEPROXY, new Boolean(useProxy).toString());
+        props.setProperty(PROP_USEPROXY, Boolean.toString(useProxy));
     }
 
     @NotNull
@@ -138,7 +137,7 @@ public class Config
     }
 
     public void setAuthenticated(boolean authenticated) {
-        props.setProperty(PROP_AUTHREQ, new Boolean(authenticated).toString());
+        props.setProperty(PROP_AUTHREQ, Boolean.toString(authenticated));
     }
 
     @NotNull

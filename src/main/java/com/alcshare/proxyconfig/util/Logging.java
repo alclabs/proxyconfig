@@ -21,9 +21,7 @@
  */
 package com.alcshare.proxyconfig.util;
 
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 
 public class Logging
 {

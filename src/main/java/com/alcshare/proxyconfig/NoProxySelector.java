@@ -16,7 +16,7 @@ public class NoProxySelector extends ProxySelector
     private List<Proxy> proxies;
 
     public NoProxySelector() {
-        List<Proxy> plist = new ArrayList<Proxy>();
+        List<Proxy> plist = new ArrayList<>();
         plist.add(Proxy.NO_PROXY);
         proxies = Collections.unmodifiableList(plist);
     }

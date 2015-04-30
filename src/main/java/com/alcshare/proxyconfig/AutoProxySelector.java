@@ -16,7 +16,7 @@ public class AutoProxySelector extends ProxySelector {
    private final ProxySelector defaultSelector;
    private final Future<ProxySelector> selectorFuture;
    private final ExecutorService delayedLoader = Executors.newSingleThreadExecutor();
-   private final AtomicReference<ProxySelector> delegateSelectorRef = new AtomicReference<ProxySelector>();
+   private final AtomicReference<ProxySelector> delegateSelectorRef = new AtomicReference<>();
 
    // this variable is used to prevent the DeferredProxySearch from being blocked by waitForSelector() when it is
    // looking for the PAC file.

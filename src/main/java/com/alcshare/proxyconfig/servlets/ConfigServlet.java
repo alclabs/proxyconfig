@@ -3,6 +3,7 @@ package com.alcshare.proxyconfig.servlets;
 import com.alcshare.proxyconfig.Config;
 import com.alcshare.proxyconfig.ProxyManager;
 import com.alcshare.proxyconfig.util.Logging;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ public class ConfigServlet extends HttpServlet
     {
         try {
             writeResults(resp);
-        } catch (IOException ex) {
+        } catch (IOException | JSONException ex) {
             Logging.println("Error writing response from ConfigServlet", ex);
         }
     }
@@ -68,12 +69,12 @@ public class ConfigServlet extends HttpServlet
 
         try {
             writeResults(resp);
-        } catch (IOException ex) {
+        } catch (IOException | JSONException ex) {
             Logging.println("Error writing response after post from ConfigServlet", ex);
         }
     }
 
-    private void writeResults(HttpServletResponse resp) throws IOException
+    private void writeResults(HttpServletResponse resp) throws IOException, JSONException
     {
         PrintWriter writer = resp.getWriter();
         resp.setContentType("text/json");

@@ -69,7 +69,7 @@ public class ProxyManager
 
     /**
      * Get the proxy host string for the specified URI.
-     * @param uri
+     * @param uri .
      * @return proxy host string or an empty string if no proxy is required
      */
     @NotNull
@@ -84,7 +84,7 @@ public class ProxyManager
 
     /**
      * Gets the proxy port for the specified URI
-     * @param uri
+     * @param uri .
      * @return the proxy port or -1 if no proxy is required
      */
     public int getProxyPortForURI(URI uri) {
@@ -115,7 +115,7 @@ public class ProxyManager
     /**
      * Attempts to set whether NTLM uses transparent authentication (uses windows operator credentials).
      * This will only work if running under a JDK of at least 1.6.0.
-     * @param useTransparent
+     * @param useTransparent .
      */
     private void useTransparentNTLMAuthentication(final boolean useTransparent) {
         JavaVersion runtimeVersion = new JavaVersion();

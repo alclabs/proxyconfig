@@ -11,10 +11,10 @@ public class JavaVersionTest extends Specification
         when:
             def ver = new JavaVersion("1.2.3_10-ea")
         then:
-            ver.stringMajor == "1"
-            ver.stringMinor == "2"
-            ver.stringTertiary == "3"
-            ver.stringUpdate == "10"
+            ver.major == 1
+            ver.minor == 2
+            ver.tertiary == 3
+            ver.update == 10
             ver.identifier == "ea"
     }
 
@@ -22,10 +22,10 @@ public class JavaVersionTest extends Specification
         when:
             def ver = new JavaVersion("1.20.30")
         then:
-        ver.stringMajor == "1"
-        ver.stringMinor == "20"
-        ver.stringTertiary == "30"
-        ver.stringUpdate == null
+        ver.major == 1
+        ver.minor == 20
+        ver.tertiary == 30
+        ver.update == -1
         ver.identifier == null
     }
 
