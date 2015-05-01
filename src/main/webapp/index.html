@@ -2,10 +2,8 @@
 <html>
 <head>
     <title>Proxy Configuration</title>
-    <!-- <link rel="stylesheet" href="css/custom-theme/jquery-ui-1.10.4.custom.min.css"> -->
     <link rel="stylesheet" href="css/proxyconfig.css">
     <script src="js/jquery-1.10.2.min.js"></script>
-    <!-- <script src="js/jquery-ui-1.10.4.custom.min.js"></script> -->
     <script src="js/proxyconfig.js"></script>
 </head>
 <body>
@@ -21,7 +19,7 @@
                 <label for="port" class="col1">Port:</label><input type="text" id="port"><br>
             </div>
             <br>
-            <input type="checkbox" id="authcheck"><label for="authcheck">Authentication required</label><br>
+            <input type="checkbox" id="authcheck"><label for="authcheck">Proxy requires authentication</label><br>
             <div id="userpass">
                 <label for="username" class="col1">Username:</label><input type="text" id="username" size="30"><br>
                 <label for="password" class="col1">Password:</label><input type="password" id="password" size="30"><br>
@@ -30,6 +28,6 @@
     </div>
     <div id="test"><label for="testurl">Test URL: http://</label><input type="text" id="testurl" size="30">&nbsp;&nbsp;<span id="result"></span></div>
 </form>
-<button id="save">Save and Test</button>
+<button id="save">Save Configuration and Test</button>
 </body>
 </html>
