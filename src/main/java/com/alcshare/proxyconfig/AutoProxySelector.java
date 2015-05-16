@@ -15,16 +15,13 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AutoProxySelector extends ProxySelector {
    private final ProxySelector defaultSelector;
    private final Future<ProxySelector> selectorFuture;
-   private final ExecutorService delayedLoader = Executors.newSingleThreadExecutor();
    private final AtomicReference<ProxySelector> delegateSelectorRef = new AtomicReference<>();
 
    // this variable is used to prevent the DeferredProxySearch from being blocked by waitForSelector() when it is
    // looking for the PAC file.
-   private final ThreadLocal<Boolean> isDeferredProxySearchThread = new ThreadLocal<Boolean>() {
-      @Override protected Boolean initialValue() { return false; }
-   };
+   private static final ThreadLocal<Boolean> isDeferredProxySearchThread = new ThreadLocal<>();
 
-   public AutoProxySelector(ProxySelector defaultSelector, ProxySearch.Strategy strategy, int cacheSize, int cacheTtl) {
+   public AutoProxySelector(ProxySelector defaultSelector, ProxySearch.Strategy strategy, int cacheSize, int cacheTtl, ExecutorService delayedLoader) {
       this.defaultSelector = defaultSelector;
       selectorFuture = delayedLoader.submit(new DeferredProxySearch(strategy, cacheSize, cacheTtl));
    }
@@ -46,7 +43,7 @@ public class AutoProxySelector extends ProxySelector {
    private ProxySelector waitForSelector() {
       ProxySelector selector = delegateSelectorRef.get();
       if (selector == null) {
-         if (isDeferredProxySearchThread.get())
+         if (isDeferredProxySearchThread.get() == Boolean.TRUE)
             return defaultSelector;
 
          try {
@@ -60,7 +57,6 @@ public class AutoProxySelector extends ProxySelector {
          if (selector == null)
             selector = new NoProxySelector();
 
-         delayedLoader.shutdown();
          delegateSelectorRef.set(selector);
       }
       return selector;
@@ -78,9 +74,8 @@ public class AutoProxySelector extends ProxySelector {
       }
 
       public ProxySelector call() throws Exception {
-         isDeferredProxySearchThread.set(true);
-
          try {
+            isDeferredProxySearchThread.set(Boolean.TRUE);
             ProxySearch proxySearch = new ProxySearch();
             proxySearch.setPacCacheSettings(cacheSize, cacheTtl);
             proxySearch.addStrategy(strategy);
@@ -90,6 +85,8 @@ public class AutoProxySelector extends ProxySelector {
             // note that this can happen currently if the PAC file is not available.
             // see issue at https://code.google.com/p/proxy-vole/issues/detail?id=47
             throw e;
+         } finally {
+            isDeferredProxySearchThread.remove();
          }
       }
    }

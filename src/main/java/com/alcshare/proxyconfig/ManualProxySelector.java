@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ManualProxySelector extends ProxySelector
 {
-    private List<Proxy> proxies;
+    private final List<Proxy> proxies;
 
     public ManualProxySelector(String host, int port) {
         // todo - should this have DIRECT as a second entry?

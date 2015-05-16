@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class NoProxySelector extends ProxySelector
 {
-    private List<Proxy> proxies;
+    private final List<Proxy> proxies;
 
     public NoProxySelector() {
         List<Proxy> plist = new ArrayList<>();

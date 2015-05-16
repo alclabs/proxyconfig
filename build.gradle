@@ -9,7 +9,7 @@ apply from: configurations.gradleScript.resolve().iterator().next()
 info {
   name = 'Proxy Configuration'
   description = 'Sets up system proxy information'
-  version = '1.0 Prerelease '+ new Date().format('yyyy/MM/dd kk:mm:ss')
+  version = '1.0 Beta 1c'//+ new Date().format('yyyy/MM/dd kk:mm:ss')
   vendor = 'ALC Labs'
 }
 

@@ -20,7 +20,7 @@ import java.net.*;
  */
 public class ProxyTestServlet extends HttpServlet
 {
-    public static String PROTOCOL_PREFIX = "http://";
+    public static final String PROTOCOL_PREFIX = "http://";
 
     private static final String PROP_ERRORMSG = "errormsg";
     private static final String PROP_GOOD = "good";

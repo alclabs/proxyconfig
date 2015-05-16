@@ -12,7 +12,7 @@ import java.util.Properties;
 /**
  *
  */
-public class Config
+public final class Config
 {
     private static final String PROP_AUTO = "auto";
     private static final String PROP_USEPROXY = "useproxy";
@@ -28,7 +28,7 @@ public class Config
     private static final String DEFAULT_PORT_STRING = "";
     private static final String DEFAULT_TESTURL = "www.google.com";
 
-    private Properties props;
+    private final Properties props;
 
     private Config(Properties props) {
         this.props = props;
